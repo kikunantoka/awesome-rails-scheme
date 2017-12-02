@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 3) do
+ActiveRecord::Schema.define(version: 5) do
+
+  create_table "column_words", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.string "name"
+    t.bigint "column_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["column_id"], name: "index_column_words_on_column_id"
+  end
 
   create_table "columns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "name"
@@ -27,6 +35,14 @@ ActiveRecord::Schema.define(version: 3) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "table_words", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.string "name"
+    t.bigint "table_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["table_id"], name: "index_table_words_on_table_id"
+  end
+
   create_table "tables", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "name"
     t.bigint "repository_id"
@@ -35,6 +51,8 @@ ActiveRecord::Schema.define(version: 3) do
     t.index ["repository_id"], name: "index_tables_on_repository_id"
   end
 
+  add_foreign_key "column_words", "columns"
   add_foreign_key "columns", "tables"
+  add_foreign_key "table_words", "tables"
   add_foreign_key "tables", "repositories"
 end
