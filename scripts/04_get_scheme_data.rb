@@ -1,9 +1,9 @@
 require "active_record"
 require "yaml"
 require 'open3'
+require "./app/models/column"
 require "./app/models/repository"
 require "./app/models/table"
-require "./app/models/column"
 
 config = YAML.load_file('./config/database.yml')
 ActiveRecord::Base.establish_connection(config["development"])
