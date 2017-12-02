@@ -14,11 +14,11 @@ ActiveRecord::Schema.define(version: 3) do
 
   create_table "columns", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "name"
-    t.string "type"
-    t.bigint "repository_id"
+    t.string "data_type"
+    t.bigint "table_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["repository_id"], name: "index_columns_on_repository_id"
+    t.index ["table_id"], name: "index_columns_on_table_id"
   end
 
   create_table "repositories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
@@ -35,6 +35,6 @@ ActiveRecord::Schema.define(version: 3) do
     t.index ["repository_id"], name: "index_tables_on_repository_id"
   end
 
-  add_foreign_key "columns", "repositories"
+  add_foreign_key "columns", "tables"
   add_foreign_key "tables", "repositories"
 end
