@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171201094234) do
+ActiveRecord::Schema.define(version: 20171205160225) do
 
   create_table "additional_emails", force: :cascade do |t|
     t.integer "contactable_id",   limit: 4,                  null: false
@@ -254,10 +254,10 @@ ActiveRecord::Schema.define(version: 20171201094234) do
     t.integer "due_days",            default: 30, null: false
     t.integer "group_id",                         null: false
     t.integer "contact_id"
-    t.integer "page_size",           default: 15
     t.text    "address"
     t.text    "payment_information"
     t.string  "account_number"
+    t.string  "iban"
   end
 
   add_index "invoice_configs", ["contact_id"], name: "index_invoice_configs_on_contact_id"
@@ -291,6 +291,10 @@ ActiveRecord::Schema.define(version: 20171201094234) do
     t.datetime "updated_at",                                                   null: false
     t.string   "account_number"
     t.text     "address"
+    t.date     "issued_at"
+    t.string   "iban"
+    t.text     "payment_purpose"
+    t.text     "payment_information"
   end
 
   add_index "invoices", ["esr_number"], name: "index_invoices_on_esr_number"
@@ -370,7 +374,7 @@ ActiveRecord::Schema.define(version: 20171201094234) do
   create_table "payments", force: :cascade do |t|
     t.integer "invoice_id",                           null: false
     t.decimal "amount",      precision: 12, scale: 2, null: false
-    t.date    "received_at"
+    t.date    "received_at", null: false
   end
 
   add_index "payments", ["invoice_id"], name: "index_payments_on_invoice_id"
